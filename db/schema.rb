@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20150220131510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  include Paperclip::Schema
 
   create_table "cocs", force: :cascade do |t|
     t.text     "body"
