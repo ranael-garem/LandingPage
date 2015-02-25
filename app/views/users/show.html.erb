@@ -1,0 +1,90 @@
+
+
+
+  <div class="media">
+                <div class="pull-left">
+                <% if (current_user== nil || current_user.admin != 1 || current_user != @user) %>
+                    <% id = @user.id %>
+                    <% if (id == 1)%>
+                    <a href="#"><%= image_tag("1.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 2)%>
+                    <a href="#"><%= image_tag("2.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 3)%>
+                    <a href="#"><%= image_tag("3.JPG", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 4)%>
+                    <a href="#"><%= image_tag("4.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 5)%>
+                    <a href="#"><%= image_tag("5.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 6)%>
+                    <a href="#"><%= image_tag("6.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 7)%>
+                    <a href="#"><%= image_tag("7.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 8)%>
+                    <a href="#"><%= image_tag("8.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                    <% if (id == 9)%>
+                    <a href="#"><%= image_tag("9.jpg", :alt => "", :class => "media-object" ) %></a>
+                    <%end%>
+                   
+                </div>
+                <div class="media-body">
+                   <h4> Name:<%= @user.first%>  <%= @user.last%> </h4>
+                        <br><br>
+                        <h4> Age: <%= @user.age%> </h4>
+                        <br>
+                        <% if (@user.aboutme != nil) %>
+                        <h4> About Me:</h4>
+                        <p> <%= @user.aboutme%> </p>
+                        <%end%>
+                        <%else%>
+                  <% if (current_user.first != nil) && (current_user.last != nil) && (current_user.age != nil) then %>
+
+                  <h4> Name:<%= current_user.first%>  <%= current_user.last%> </h4>
+                        <br><br>
+                        <h4> Age: <%= current_user.age%> </h4>
+                          <% if (current_user.aboutme != nil) %>
+                        <h4> About Me:</h4>
+                        <p> <%= @user.aboutme%> </p>
+                        <%end%>
+
+
+     <%else%>
+
+      <p>Please Edit your profile and enter the missing informarion</p>
+
+
+    <%end%>
+    <%end%>
+
+                  <%if user_signed_in? && current_user == @user%>
+                   <% @sig = current_user.signatur %>
+                   <% if (@sig != nil) then %>
+                   <p> Signature </p>
+                    <%= image_tag @sig.image.url %>
+
+                      <%else%>
+
+                        <p><%= link_to "Create a new Signature", new_signatur_path, :class => "btn btn-primary btn-lg" %></p> <br>
+
+                  <% end %>
+
+                <br>
+                <%= link_to "Edit profile ", edit_user_path(current_user), :class => "btn btn-primary btn-lg" %> 
+                <br>
+                <%= link_to "Back to Home page", root_path, :class => "btn btn-primary btn-lg" %>
+                <br>
+                </div>
+              </div>
+              <%end%><!--/.media -->
+
+
+
+
+

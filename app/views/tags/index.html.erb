@@ -1,0 +1,13 @@
+<h1> All Categories </h1>
+
+	<%= form_tag show2_tags_path  do %>
+		<ul id="articles">
+  		<% for tag in @tags %>
+
+    <li>
+      <%= check_box_tag "tags_ids[]", tag.id %>
+      <%= link_to tag.name, tag_path(tag) %>
+    </li>
+  <% end %>
+  <%= submit_tag "Show Posts with Chosen Categories" %>
+<% end %>

@@ -1,0 +1,19 @@
+<%if @result == nil %>
+<h2>Please Choose a Category</h2>
+<%else%>
+
+<h2>Articles with Chosen Categories</h2>
+
+	<ul class="blog_category">
+  <% @result.each do |post| %>
+    <li>
+      <%= link_to post.title, post_path(post) %>
+    </li>  <br>
+  <% end %>
+</ul>
+<%end%>
+
+
+ <% #@result.each do |res| %>
+ 	<%#= res.id %>
+ <%#end %> 

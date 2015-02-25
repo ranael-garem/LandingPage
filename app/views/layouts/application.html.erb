@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BlogTrial</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+    <header id="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-4">
+                    </div>
+                    <div class="col-sm-6 col-xs-8">
+                  
+                    </div>
+                </div>
+            </div><!--/.container-->
+        </div><!--/.top-bar-->
+
+        <nav class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h3>KodoKyojin</h3>
+                </div>
+                
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <%if user_signed_in?%>
+                        <li><%=link_to "Home" , :controller => "static_pages", :action => "home" %></li>
+                        <li><%= link_to "About Us", {:controller => 'static_pages', :action => 'aboutus'} %> </li>
+                        <li><%= link_to "Meet the Team", {:controller => 'static_pages', :action => 'meet'} %> </li>
+                        <%else%>
+                        <li><%=link_to "Home" , "/" %></li>
+                        <li><%=link_to "About Us" , "/" %></li>
+
+                        <%end%>
+                        
+                        <li><%= link_to "Blog", posts_path %> </li>                       
+                        <% if (current_user != nil)	
+                        id = current_user.id
+                        @user = User.find(id)%>
+                        <li> <%= link_to "Your Profile", user_path(@user) %></li>
+                        <li> <%= link_to 'Logout', destroy_user_session_path , method: :delete %></li>  
+                        <% else %>
+                        <li><%= link_to "Sign in", new_user_session_path %></li>
+                        <%end%>
+						 
+                      
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+        
+    </header>
+
+<%= yield %>
+
+
+<footer id="footer" class="midnight-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2015 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">KodoKyojin</a>. All Rights Reserved.
+                </div>
+                <div class="col-sm-6">
+                    <ul class="pull-right">
+                        <li><%=link_to "Home" , "/" %></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><%= link_to "Blog", posts_path %> </li>  
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer><!--/#footer-->
+<script src="/assets/javascripts/jquery.js"></script>
+    <script src="/assets/javascripts/bootstrap.min.js"></script>
+    <script src="/assets/javascripts/jquery.prettyPhoto.js"></script>
+    <script src="/assets/javascripts/jquery.isotope.min.js"></script>
+    <script src="/assets/javascripts/main.js"></script>
+    <script src="/assets/javascripts/wow.min.js"></script>
+</body>
+</html>

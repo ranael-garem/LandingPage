@@ -1,0 +1,9 @@
+LOG:  database system was shut down at 2015-02-24 22:09:08 EET
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  database "blog_development" already exists
+STATEMENT:  CREATE DATABASE "blog_development" ENCODING = 'unicode'
+ERROR:  database "blog_development" already exists
+STATEMENT:  CREATE DATABASE "blog_development" ENCODING = 'unicode'
+ERROR:  database "blog_development" already exists
+STATEMENT:  CREATE DATABASE "blog_development" ENCODING = 'unicode'

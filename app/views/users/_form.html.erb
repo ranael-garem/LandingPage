@@ -1,0 +1,29 @@
+<%= form_for(current_user) do |f| %>
+  <ul>
+  <% current_user.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+  </ul>
+ 
+  <p>
+    <%= f.label :First_Name %><br />
+    <%= f.text_field :first%>
+  </p>
+  <p>
+    <%= f.label :Last_Name %><br />
+    <%= f.text_field :last %>
+  </p>
+ <p>
+  <%= f.label :age %><br />
+  <%= f.text_field :age %>
+</p>
+
+  <%= f.label :About_Me %>
+  <%= f.text_field :aboutme %>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+

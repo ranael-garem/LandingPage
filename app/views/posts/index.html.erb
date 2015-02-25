@@ -1,0 +1,97 @@
+
+<head>
+	<style>
+
+	</style>
+</head>
+<body>
+<section id="blog" class="container">
+		<header style="background-image: url(<%= asset_path 'home-bg.jpg' %>)">
+		<div class="center intro-header post-heading" >
+			<br> <br><br><br><br><br><br><br><br><br><br>
+            <h1>All Posts</h1>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+    </header>
+        
+    	<div> <br> </div>
+        <div class="blog">
+            <div class="row">
+                 <div class="col-md-8">
+                        <%if user_signed_in?%>
+                        <%if current_user.admin == 1%>
+                      <%= link_to "Create a New Post", new_post_path, :class => "btn btn-primary" %>
+                      <% end %>
+                      <% end %>
+                      <br><br>
+                 	  <% @posts.each do |post| %>
+
+                    <div class="blog-item">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-2 text-center">
+     								<div class="entry-meta">
+                                        <span id="publish_date"> <%= post.created_at %></span>
+                                        <%userid = post.user_id %> 
+                                        <% @user = User.where("id=#{userid}") %>
+                                            <span><i class="fa fa-user"></i> By: <%= @user.first.email%> </span>
+                                          <% @sig = @user.first.signatur %>
+
+                                            <% if (@sig != nil) then %>
+                                            <span><i class="fa fa-user"></i> <%= image_tag @sig.image.url %></span>
+                                            <% end %>
+                                        
+                                    </div>
+                            </div>
+                                
+                            <div class="col-xs-12 col-sm-10 blog-content">
+                                <h2>   <%=  post.title %> </h2>
+                           
+                                <%= link_to "Read Post" , post_path(post), :class => "btn btn-primary readmore"%>
+                            </div>
+                        </div>    
+                    </div><!--/.blog-item-->
+                       <% end %>
+
+                        
+                
+                </div><!--/.col-md-8-->
+
+                <aside class="col-md-4">
+
+
+                     
+
+                    <div class="widget categories">
+                        <h3>Categories</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="blog_category">
+                                	<% @tags = Tag.all %>
+                                		<%= form_tag show2_tags_path  do %>
+                                		  <% for tag in @tags %>
+
+                                	    <li> <%= check_box_tag "tags_ids[]", tag.id %>
+      										<%= link_to tag.name, tag_path(tag) %></li>
+      										 <% end %>
+  											<%= submit_tag "Show Posts with Chosen Categories", :class => "btn btn-primary readmore" %>
+											<% end %>
+                                </ul>
+                            </div>
+                        </div>                     
+                    </div><!--/.categories-->
+
+
+    
+    				
+    
+    				
+    			
+    			</aside>  
+            </div><!--/.row-->
+        </div>
+    </section><!--/#blog-->
+
+</body>
+
+
+

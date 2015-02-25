@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Blog Single | Corlate</title>
+    
+    <!-- core CSS -->
+    <link href="/assets/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/prettyPhoto.css" rel="stylesheet">
+    <link href="/assets/stylesheets/animate.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/main.css" rel="stylesheet">
+    <link href="/assets/stylesheets/responsive.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+  
+</head><!--/head-->
+
+<body>
+  <section id="blog" class="container" >
+
+
+        <div class="blog">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="blog-item">
+                            <div class="row">  
+                                <div class="col-xs-12 col-sm-2 text-center">
+                                    <div class="entry-meta">
+                                        <span id="publish_date"> <%= @post.created_at %></span>
+                                        <%userid = @post.user_id %> 
+                                        <% @user = User.where("id=#{userid}") %>
+                                            <span><i class="fa fa-user"></i> By: <%= @user.first.email%> </span>
+                                          <% @sig = @user.first.signatur %>
+
+                                            <% if (@sig != nil) then %>
+                                            <span><i class="fa fa-user"></i> <%= image_tag @sig.image.url %></span>
+                                            <% end %>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-10 blog-content">
+                                    <% urls = @post.body.split(/\s+/).find_all { |u| u =~ /^https?:/ } %>
+                                        <%  urls.each do |url|%>
+ 
+                                        <H2>   
+                                         <% @post.body.slice!(url) %>
+                                         <%if url.include? "youtube"%>
+                                         <%= embed(url) %>
+                                         <% else %>
+                                         <%= image_tag url %>
+                                         <% end %>
+                                         </H2>
+                                        <% end %>
+                                    <h2><%= @post.title%>  </h2>
+                                    <p><%= @post.body %></p>
+
+                                    <div class="post-tags">
+                                        <strong>Categories:</strong>  <% @post.tags.each do |tag| %>
+                                        <%= link_to tag.name, tag_path(tag) %>
+                                                    <% end %>
+                                    </div>
+                                    <br>
+                                <%= social_share_button_tag("My Site") %>
+
+                                <br>
+                                <%if current_user.admin == 1%>
+                                <%= link_to "Delete Post ", post_path(@post), method: :delete, data: {confirm: "Really delete the post?"} %>
+                                <br>
+                                <%= link_to "Edit Post", edit_post_path(@post) %>
+                                <br>
+                                <br>
+                                <% end %>
+                                <%= link_to "Back to All Posts", posts_path, :class => "btn btn-primary btn-lg" %>
+                                </div>
+
+
+                            </div>
+                        </div><!--/.blog-item-->
+                
+                        <% @result = Comment.where("post_id=#{@post.id}")  %>
+                        <% if (@result != nil) then %>
+                        <% if (@result.size != 1) then%>
+                        <h1 id="comments_title"> <%= @result.size %> Comments</h1>
+                        <% else %>
+                        <h1 id="comments_title"> <%= @result.size %> Comment</h1>  
+                        <% end %>                      
+                        <% @result.each do |res| %>
+
+                        <div class="media comment_section">
+                            <div class="pull-left post_comments">
+                            </div>
+                            <div class="media-body post_reply_comments">
+                                <% @user = User.where("id=#{res.user_id}") %>
+                                <h3><%= @user.first.email %></h3>
+                                <h4> <%=res.created_at %></h4>
+                                <% @sig = @user.first.signatur %>
+                              <% if (@sig != nil) then %>
+                              <%= image_tag @sig.image.url %>
+                              <%end%>
+
+                              <br>
+                              <br>
+                              <p> <%= res.body %>
+                                    <br>
+                            </div>
+                            <p> <%= link_to "Reply", post_comment_path(@post.id , res.id), :class => "btn btn-primary btn-lg" %></p>
+
+                        </div> 
+                        <%end%>
+                         <% end %>
+
+
+
+                <div id="contact-page clearfix">
+                            <div class="status alert alert-success" style="display: none"></div>
+                            <div class="message_heading">
+                              <h3> Post a Comment </h3>
+                            </div> 
+                             <%if user_signed_in? %>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                      <%= form_for ([@post, @comment] )  do |f| %>
+                                            <%= f.text_area :body, :class => "form-control", :id => "message" %>
+                                        </div>
+                                        <div class="form-group">
+                                              <%= f.submit :class => "btn btn-primary btn-lg" %> 
+                                              <% end %>
+                                        </div>
+                                                         
+                                    </div>
+                                                           
+                                        
+                                </div>
+                             <% else %>
+                            <h4>To Comment Please Sign in or Register</h4>
+                            <<%= link_to 'Sign in', new_user_session_path%>
+                            <%= link_to 'Register', new_user_registration_path%></p>
+                            <% end %>    
+                        </div><!--/#contact-page-->
+
+
+           
+                    </div><!--/.col-md-8-->
+
+                    <aside class="col-md-4">
+                    <div class="widget categories">
+                        <h3> All Categories</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="blog_category">
+                                  <% @tags = Tag.all %>
+                                    <% for tag in @tags %>
+
+                                        <li> <%= link_to tag.name, tag_path(tag) %></li>
+                                        <% end %>
+                              
+                                </ul>
+                            </div>
+                        </div>                     
+                    </div><!--/.categories-->
+            
+                </aside>     
+
+            </div><!--/.row-->
+
+         </div><!--/.blog-->
+
+    </section><!--/#blog-->
+
+
+
+
+<script src="/assets/javascripts/jquery.js"></script>
+    <script src="/assets/javascripts/bootstrap.min.js"></script>
+    <script src="/assets/javascripts/jquery.prettyPhoto.js"></script>
+    <script src="/assets/javascripts/jquery.isotope.min.js"></script>
+    <script src="/assets/javascripts/main.js"></script>
+    <script src="/assets/javascripts/wow.min.js"></script>
+</body>
+
+
+
+
+

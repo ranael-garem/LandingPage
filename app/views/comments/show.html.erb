@@ -1,0 +1,58 @@
+<h2> <%= @comment.body%> </h2>
+
+
+
+ 
+
+<% @result = Coc.where("comment_id=#{@comment.id}")  %>
+<% if (@result != nil) then %>
+	<% @result.each do |res| %>
+		<h5>
+
+				<%=res.body%>
+		<br>  
+		<% @user = User.where("id=#{res.user_id}") %>
+
+		By <%= @user.first.email %>
+		
+		</h5>
+
+		<% @sig = @user.first.signatur %>
+
+    <% if (@sig != nil) then %>
+    <%= image_tag @sig.image.url %>
+    <% end %>
+    
+		<!-- ################ -->
+		
+		<br>
+	<%end%>
+<%end%>
+
+
+
+
+
+
+
+ <h3> Post Comment </h3>
+ <%if user_signed_in? %>
+ <%= form_for [@comment, @coc] do |f| %>
+  
+ 
+   <p>
+     <%= f.label :body %><br />
+     <%= f.text_area :body %>
+   </p>
+   <p>
+     <%= f.submit "Post Comment" %>
+   </p>
+ <% end %>
+ <% else %>
+  <h4>To Comment Please Sign in or Register</h4>
+  <h5><p><%= link_to 'sign in', new_user_session_path%></p>
+ <p><%= link_to 'Register', new_user_registration_path%></p></h5>
+
+ 
+ <% end %>
+

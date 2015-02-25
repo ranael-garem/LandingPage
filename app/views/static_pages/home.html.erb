@@ -1,0 +1,127 @@
+
+	<!DOCTYPE html>
+
+<body class="homepage">
+
+    <section id="main-slider" class="no-margin">
+        <div class="carousel slide">
+            <ol class="carousel-indicators">
+                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+                <li data-target="#main-slider" data-slide-to="1"></li>
+                <li data-target="#main-slider" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+
+                <div class="item active" style="background-image: url(<%= asset_path 'slider/bg1.jpg' %>)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">KodoKyojin</h1>
+                                   
+                            <%= link_to "Know more about us", {:controller => 'static_pages', :action => 'aboutus'}, :class => "btn btn-primary btn-lg" %>
+                                </div>
+                            </div>
+
+                           
+
+                        </div>
+                    </div>
+                </div><!--/.item-->
+
+                <div class="item" style="background-image: url(<%= asset_path 'slider/bg2.jpg' %>)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1"> Who Are We?</h1>
+                                    <h2 class="animation animated-item-2"></h2>
+									<%= link_to "Meet the Team", {:controller => 'static_pages', :action => 'meet'}, :class => "btn btn-primary btn-lg" %>                                
+							</div>
+                            </div>
+
+                           
+
+                        </div>
+                    </div>
+                </div><!--/.item-->
+
+                <div class="item" style="background-image: url(<%= asset_path 'slider/bg3.jpg' %>)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1"> Visit our Blog </h1>
+                                    <%= link_to "Go there", posts_path, :class => "btn btn-primary btn-lg" %>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!--/.item-->
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+           
+        </a>
+    </section><!--/#main-slider-->
+ 
+ 	<%if !user_signed_in?%>
+    <section id="feature" >
+        <div class="container">
+           <div class="center wow fadeInDown">
+               
+
+                <h4><%= link_to 'Sign in', new_user_session_path%></h4>
+				<h4><%= link_to 'Register', new_user_registration_path%><h4/>
+				<% end %>
+            </div>
+
+        
+                </div><!--/.services-->
+            </div><!--/.row-->    
+        </div><!--/.container-->
+    </section><!--/#feature-->
+
+    
+
+
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/wow.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
