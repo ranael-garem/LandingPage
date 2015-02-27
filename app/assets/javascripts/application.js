@@ -16,10 +16,10 @@
 //= require social-share-button
 //= require_tree .
 
-= require signature-pad
-= require signature-pad/jquery.signaturepad
-= require signature-pad/flashcanvas
-= require signature-pad/json2
+//= require signature-pad
+//= require signature-pad/jquery.signaturepad
+//= require signature-pad/flashcanvas
+//= require signature-pad/json2
 
 //= require jquery
 //= require jquery_ujs
